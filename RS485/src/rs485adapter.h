@@ -6,6 +6,11 @@
  */
 #ifndef RS485ADAPTER_H_
 #define RS485ADAPTER_H_
+#define RS232_MODE              0
+#define RS485_2WIRE_MODE        1
+#define RS422_MODE              2
+#define RS485_4WIRE_MODE        3
+#define NOT_SET_MODE			4
 
 #include	<fcntl.h>
 #include 	<unistd.h>

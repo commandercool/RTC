@@ -33,3 +33,11 @@ int adapter_get_serial(int fd, struct serial_struct* serinfo) {
 int adapter_set_serial(int fd, struct serial_struct* serinfo){
 	return ioctl(fd, TIOCSSERIAL, serinfo);
 }
+
+int adapter_write(int fd, const void* msg, ssize_t len){
+	return write(fd, msg, len);
+}
+
+int adapter_read(int fd, void* buf, ssize_t len){
+	return read(fd, buf, len);
+}

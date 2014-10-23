@@ -23,5 +23,7 @@ int adapter_open_dev (const char* file, int flag);
 int adapter_close_dev (int fd);
 int adapter_get_serial(int fd, struct serial_struct* serinfo);
 int adapter_set_serial(int fd, struct serial_struct* serinfo);
+int adapter_write(int fd, const void* msg, ssize_t len);
+int adapter_read(int fd, void* buf, ssize_t len);
 
 #endif /* RS485ADAPTER_H_ */

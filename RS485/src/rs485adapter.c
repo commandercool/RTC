@@ -19,7 +19,13 @@ struct serial_struct DEF_RS485B115200 = {.type = 4, .line = 1, .port = 1, .irq =
 		.port_high = 0, .iomap_base = 0};
 
 int adapter_open_dev (const char* file, int flag){
-	return open(file, flag);
+	int fd = open(file, flag);
+	struct termios  config;
+	tcgetattr(fd, &config);
+	cfsetispeed(&config, B9600);
+	cfsetospeed(&config, B9600);
+	tcsetattr(fd, TCSAFLUSH, &config);
+	return fd;
 }
 
 int adapter_close_dev (int fd){

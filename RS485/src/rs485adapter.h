@@ -16,6 +16,7 @@
 #include 	<unistd.h>
 #include	<sys/ioctl.h>
 #include 	<linux/serial.h>
+#include 	<termios.h>
 
 struct serial_struct DEF_RS485B9600;
 

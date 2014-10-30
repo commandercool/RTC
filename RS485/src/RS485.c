@@ -18,34 +18,41 @@ int	main(int argc, char *argv[])
 
 	printf("Setting serial to port 1 (rs485)...\n");
 
-	if (adapter_set_serial(fd, &DEF_RS485B9600) < 0) {
+	if (adapter_set_serial(fd, &DEF_RS485) < 0) {
 		perror("Cannot set serial info");
 		exit(1);
 	} else {
 		printf("Serial is set to rs485 mode\n");
 	}
 
+	printf("Setting baud rate...\n");
+
+	if (adapter_set_baud_rate(fd, B9600) < 0){
+		perror("Cannot set baud for device");
+		exit(1);
+	} else {
+		printf("Serial baud is set to 9600\n");
+	}
+
 	printf("Sending message...\n");
+
 	char* msg = "Hello rs485!";
+	printf("<< %s\n", msg);
+
 	int result = adapter_write(fd, msg, 12);
 	if (result > 0){
 		printf("Message was sent\n");
 	} else {
-		printf("error while sending message\n");
+		printf("Error while sending message\n");
 	}
 
-	printf("reading message...\n");
-	char buf = 'a';
-	printf("after buf %c\n", buf);
-	while (1) {
-		result = adapter_read(fd, &buf, 1);
-			if (result > 0){
-				printf(">> %c\n", buf);
-			} else {
-				printf("error while reading message\n");
-			}
-	}
+	printf("Reading message...\n");
 
-	adapter_close_dev(fd);
-	exit(0);
+	char income_msg[20] = {'\0'};
+	adapter_read_msg(fd, income_msg, 11);
+
+	printf(">> %s\n", income_msg);
+
+	result = adapter_close_dev(fd);
+	exit(result);
 }

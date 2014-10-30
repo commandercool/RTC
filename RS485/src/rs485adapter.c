@@ -30,6 +30,10 @@ int adapter_get_serial(int fd, struct serial_struct* serinfo) {
 	return ioctl(fd, TIOCGSERIAL, serinfo);
 }
 
+int adapter_set_serial_def(int fd){
+	return adapter_set_serial(fd, &DEF_RS485);
+}
+
 int adapter_set_serial(int fd, struct serial_struct* serinfo){
 	return ioctl(fd, TIOCSSERIAL, serinfo);
 }

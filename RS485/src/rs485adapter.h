@@ -24,6 +24,7 @@ struct serial_struct DEF_RS485;
 
 int adapter_open_dev (const char* file, int flag);
 int adapter_close_dev (int fd);
+int adapter_set_serial_def(int fd);
 int adapter_get_serial(int fd, struct serial_struct* serinfo);
 int adapter_set_serial(int fd, struct serial_struct* serinfo);
 int adapter_set_baud_rate(int fd, unsigned int boud_const);

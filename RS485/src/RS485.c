@@ -6,10 +6,17 @@
  */
 #include	<stdio.h>
 #include	<stdlib.h>
+//#include 	<rs485adapter.h>
 #include 	"rs485adapter.h"
 
 int	main(int argc, char *argv[])
 {
+	if (argc != 2){
+		perror("Wrong number of arguments\n"
+				"Usage: ./RS485 <dev>\n"
+				"Where <dev> - device file (e.g. '/dev/ttyUSB0')");
+		exit(1);
+	}
 	int	fd = adapter_open_dev(argv[1], O_RDWR);
 	if (fd < 0) {
 		perror("Error while opening device");
@@ -18,7 +25,7 @@ int	main(int argc, char *argv[])
 
 	printf("Setting serial to port 1 (rs485)...\n");
 
-	if (adapter_set_serial(fd, &DEF_RS485) < 0) {
+	if (adapter_set_serial_def(fd) < 0) {
 		perror("Cannot set serial info");
 		exit(1);
 	} else {
